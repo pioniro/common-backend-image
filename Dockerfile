@@ -51,8 +51,7 @@ COPY start.sh /opt/docker/provision/
 
 RUN \
     chmod +x /opt/docker/provision/entrypoint.d/*.sh && \
-    chmod +x /opt/docker/provision/start.sh && \
-    chmod 600 /etc/ssh/id_rsa
+    chmod +x /opt/docker/provision/start.sh
 
 WORKDIR /project
 
