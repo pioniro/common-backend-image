@@ -4,3 +4,4 @@
  * yarn
  * php-pgsql
  * php-redis 3.1.6
+ * igbinary

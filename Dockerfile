@@ -36,7 +36,25 @@ RUN buildDeps=" \
     && rm -r /var/lib/apt/lists/* \
     && pecl channel-update pecl.php.net \
     && printf "\n" | pecl install redis-3.1.6 \
-    && echo extension=redis.so > /usr/local/etc/php/conf.d/redis.ini
+    && echo extension=redis.so > /usr/local/etc/php/conf.d/redis.ini \
+    && pecl install igbinary \
+    && printf "\n\
+        ; Load igbinary extension\n\
+        extension=igbinary.so\n\
+\n\
+        ; Use igbinary as session serializer\n\
+        session.serialize_handler=igbinary\n\
+\n\
+        ; Enable or disable compacting of duplicate strings\n\
+        ; The default is On.\n\
+        igbinary.compact_strings=On\n\
+\n\
+        ; If uncommented, use igbinary as the serializer of APCu\n\
+        ; (For PHP 7, APCu 5.1.10 or newer is strongly recommended)\n\
+        ; For older PHP versions, APC cache is also supported\n\
+        ; (must be version 3.1.7 or newer)\n\
+        ;apc.serializer=igbinary\n\
+        " > /usr/local/etc/php/conf.d/igbinary.ini
 
 ## Install Composer.
 ENV COMPOSER_HOME /root/composer
